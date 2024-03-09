@@ -6,6 +6,8 @@ import { isSupportedChain } from "./utils";
 import { getProvider } from "./constants/providers";
 import { getProposalsContract } from "./constants/contracts";
 import { useCallback } from "react";
+import { toast } from 'react-toastify';
+
 
 export const useHandleVote = async () => {
 
@@ -14,7 +16,7 @@ export const useHandleVote = async () => {
 
 
     return useCallback(async (id) => {
-        if (!isSupportedChain(chainId)) return console.error("Wrong network");
+        if (!isSupportedChain(chainId)) return toast.error("Wrong network");
         const readWriteProvider = getProvider(walletProvider);
         const signer = await readWriteProvider.getSigner();
     
@@ -28,10 +30,10 @@ export const useHandleVote = async () => {
             console.log("receipt: ", receipt);
     
             if (receipt.status) {
-                return console.log("vote successfull!");
+                return toast.success("vote successfull!");
             }
     
-            console.log("vote failed!");
+            toast.error("vote failed!");
         } catch (error) {
             console.log(error);
             let errorText;

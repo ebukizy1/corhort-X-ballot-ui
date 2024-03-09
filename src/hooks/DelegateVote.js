@@ -6,6 +6,8 @@ import { isSupportedChain } from "./utils";
 import { getProvider } from "./constants/providers";
 import { getProposalsContract } from "./constants/contracts";
 import { useCallback } from "react";
+import { isAddress } from "ethers";
+import { toast } from 'react-toastify';
 
 export const useDelegateVote = async (address) => {
 
@@ -14,7 +16,8 @@ export const useDelegateVote = async (address) => {
 
 
     return useCallback(async () => {
-        if (!isSupportedChain(chainId)) return console.error("Wrong network");
+        if (!isSupportedChain(chainId)) return toast.error("Wrong network");
+        if (!isAddress(address)) return toast.error("Invalid address");
         const readWriteProvider = getProvider(walletProvider);
         const signer = await readWriteProvider.getSigner();
     
@@ -28,10 +31,10 @@ export const useDelegateVote = async (address) => {
             console.log("receipt: ", receipt);
     
             if (receipt.status) {
-                return console.log("vote successfull!");
+                return toast.success("vote successfull!");
             }
     
-            console.log("vote failed!");
+            toast.error("vote failed!");
         } catch (error) {
             console.log(error);
             let errorText;
@@ -46,7 +49,7 @@ export const useDelegateVote = async (address) => {
                 errorText = "An unknown error occured";
             }
     
-            console.error("error: ", errorText);
+            toast.error(`error: ${errorText}`);
         }
 
     },[address, chainId, walletProvider])
