@@ -2,14 +2,15 @@ import {
     useWeb3ModalAccount,
     useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
-import { isSupportedChain } from "./utils";
-import { getProvider } from "./constants/providers";
-import { getProposalsContract } from "./constants/contracts";
+// import { isSupportedChain } from "./utils";
+import { getProvider } from "../constants/providers";
+import { getProposalsContract } from "../constants/contracts";
 import { useCallback } from "react";
 import { isAddress } from "ethers";
 import { toast } from 'react-toastify';
+import { isSupportedChain } from "../utils";
 
-export const useDelegateVote = async (address) => {
+export const useDelegateVote = (address) => {
 
     const { chainId } = useWeb3ModalAccount();
     const { walletProvider } = useWeb3ModalProvider();

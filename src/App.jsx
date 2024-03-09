@@ -5,7 +5,7 @@ import Header from "./component/Header";
 import Proposal from "./component/Proposal";
 import DelegateVote from "./component/DelegateVote";
 import useProposals from "./hooks/useProposals";
-import { useHandleVote } from "./hooks/useHandleVote";
+import useHandleVote from "./hooks/useHandleVote";
 
 
 configureWeb3Modal();
